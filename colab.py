@@ -31,6 +31,7 @@ labels_training = np.concatenate((labels_digits_training, labels_letters_trainin
 labels_test = np.concatenate((labels_digits_test, labels_letters_test))
 
 
+
 # Reshaping images acording to the format in keras
 if K.image_data_format() == 'channels_first':
     images_training = images_training.reshape(images_training.shape[0], 1, img_rows, img_cols)
@@ -41,10 +42,18 @@ else:
     images_test = images_test.reshape(images_test.shape[0], img_rows, img_cols, 1)
     input_shape = (img_rows, img_cols, 1)
 
+
+
 images_training = images_training.astype('float32')
 images_test = images_test.astype('float32')
+
+
+
 images_training /= 255
 images_test /= 255
+
+
+
 print('images_training shape:', images_training.shape)
 print(images_training.shape[0], 'train samples')
 print(images_test.shape[0], 'test samples')
@@ -96,24 +105,44 @@ else:
 
 #val_loss, val_acc = model.evaluate(images_test, labels_test)
 
-my_image = plt.imread('A.jpeg')
+my_image = plt.imread('A2.jpeg')
+
+
 
 from skimage.transform import resize
 from skimage import color, io
 #my_image = io.imread('A.jpeg')
 my_image_resized = resize(my_image, (28,28,1))
-img = my_image_resized.astype('float32')
-img /= 255
+
+
+#print(my_image_resized)
+
+unos = np.ones((28, 28, 1), dtype='float32')
+
+prueba = np.subtract(unos, my_image_resized)
 
 
 
-#predictions = model.predict(np.array( [my_image_resized,] ))
-#print(np.argmax(predictions[0]))
+#plt.imshow(np.squeeze(my_image_resized), cmap='binary')
+#plt.show()
+
+#print(prueba)
+
+
+
+
+
+
+predictions = model.predict(np.array( [prueba,] ))
+print(np.argmax(predictions[0]))
 #plt.imshow(color.rgb2gray(images_test[0]), cmap='binary')
 #plt.imshow(np.squeeze(img), cmap='binary')
-plt.imshow(np.squeeze(my_image_resized), cmap='binary')
-plt.show()
+#plt.imshow(np.squeeze(my_image_resized), cmap='binary')
+#plt.show()
 
+
+plt.imshow(np.squeeze(prueba), cmap='binary')
+plt.show()
 
 #print('Test loss:', val_loss)
 #print('Test accuracy:', val_acc)
