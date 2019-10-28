@@ -62,7 +62,7 @@ print(images_test.shape[0], 'test samples')
 labels_training = keras.utils.to_categorical(labels_training, num_classes)
 labels_test = keras.utils.to_categorical(labels_test, num_classes)
 
-if not path.isfile('siquiero.model'):
+if not path.isfile('siquiero3.model'):
 
 
     # Creating the model
@@ -88,12 +88,12 @@ if not path.isfile('siquiero.model'):
               verbose=1,
               validation_data=(images_test, labels_test))
 
-    model.save('siquiero.model')
+    model.save('siquiero4.model')
 
 
 else:
 
-    model = tf.keras.models.load_model('siquiero.model')
+    model = tf.keras.models.load_model('siquiero3.model')
 
 # Model Score
 # val_loss, val_acc = model.evaluate(images_test, labels_test)
@@ -105,7 +105,7 @@ else:
 
 #val_loss, val_acc = model.evaluate(images_test, labels_test)
 
-my_image = plt.imread('A2.jpeg')
+my_image = plt.imread('A.jpeg')
 
 
 
